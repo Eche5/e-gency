@@ -35,28 +35,31 @@ function Sale() {
                 }
               />
               <div>
-                <p className=" text-2xl text-[1rem] font-bold">{sale.name} </p>
-                <p className=" flex">
-                  <div className=" flex mr-2 gap-2">
+                <p className="  text-xl font-bold small:text-sm phone:text-xl">
+                  {sale.name}
+                </p>
+                <div className=" flex items-center phone:flex small:grid small:grid-cols-1">
+                  <div className=" flex justify-center mr-2 gap-1 items-center ">
                     {sale.sittingroom && (
-                      <div className=" flex justify-center">
-                        {sale.sittingroom}
+                      <div className=" flex justify-center items-center gap-1 ">
+                        <p className=" text-xl">{sale.sittingroom}</p>
                         <img
-                          width="20"
-                          height="8"
+                          className=" w-5 h-5 mb-1"
                           src="https://img.icons8.com/ios-filled/50/living-room.png"
                           alt="living-room"
                         />
                       </div>
                     )}
-                    <div className=" flex justify-center">
-                      {sale.bedroom}
-                      <img src={bedicon} className=" w-4 h-[1.2rem]" />
+                    <div className=" flex justify-center items-center gap-1">
+                      <p className=" text-xl">{sale.bedroom}</p>
+                      <img src={bedicon} className=" w-5 h-5 mb-1" />
                     </div>
                   </div>
-                  <span>📌 </span>
-                  {sale.location}
-                </p>
+                  <div className=" flex  items-center">
+                    <span>📌 </span>
+                    <p> {sale.location}</p>
+                  </div>
+                </div>
                 <p className=" text-gray-950 mt-2">₦{sale.amount}</p>
                 <NavLink to={`${sale.id}`}>
                   <button

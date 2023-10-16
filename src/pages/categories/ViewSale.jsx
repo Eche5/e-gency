@@ -47,25 +47,31 @@ function ViewRent() {
           <img
             src={selectedItem.image}
             alt={selectedItem.name}
-            className="laptop:w-[40vw] laptop:h-[60vh] desktop:w-[40vw] desktop:h-[60vh] rounded-lg"
+            className="laptop:w-[40vw] laptop:h-[60vh] desktop:w-[40vw] macBook:w-full desktop:h-[60vh] rounded-lg"
           />
           <div className=" laptop:m-16 laptop:text-3xl desktop:m-16 desktop:text-3xl font-extrabold">
             <h2>{selectedItem.name}</h2>
-            <div className=" flex justify-center gap-4">
+            <div className=" flex justify-center gap-2 items-center">
               {selectedItem.sittingroom && (
-                <div className=" flex justify-center">
-                  {selectedItem.sittingroom}
+                <div className=" flex justify-center items-center gap-1">
+                  <p className=" laptop:text-4xl phone:text-2xl small:text-2xl">
+                    {selectedItem.sittingroom}
+                  </p>
                   <img
-                    width="28"
-                    height="8"
+                    className=" laptop:w-8 laptop:h-8 phone:w-6 phone:h-6 small:w-6 small:h-6 phone:mb-2 small:mb-2"
                     src="https://img.icons8.com/ios-filled/50/living-room.png"
                     alt="living-room"
                   />
                 </div>
               )}
-              <div className=" flex justify-center">
-                {selectedItem.bedroom}
-                <img src={bedicon} className=" w-8 h-[2rem]" />
+              <div className=" flex justify-center items-center gap-1">
+                <p className=" laptop:text-4xl phone:text-2xl small:text-2xl">
+                  {selectedItem.bedroom}
+                </p>
+                <img
+                  src={bedicon}
+                  className=" laptop:w-8 laptop:h-8 phone:w-6 phone:h-6 small:w-6 small:h-6 phone:mb-2 small:mb-2"
+                />
               </div>
             </div>
             <p>📌: {selectedItem.location}</p>

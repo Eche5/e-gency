@@ -22,7 +22,7 @@ function Rent() {
         {rentList.map((rent) => {
           return (
             <li
-              className=" flex justify-start gap-8 phone:mb-6 iphone:mb-6"
+              className=" flex justify-start gap-8 phone:mb-6 iphone:mb-6 small:mb-6"
               key={rent.image}
             >
               <img
@@ -35,28 +35,31 @@ function Rent() {
                 }
               />
               <div>
-                <p className=" text-2xl text-[1rem] font-bold">{rent.name}</p>
-                <p className=" flex">
-                  <span className=" flex mr-2 gap-2">
+                <p className="  text-xl font-bold small:text-sm phone:text-xl">
+                  {rent.name}
+                </p>
+                <div className=" flex items-center phone:flex small:grid small:grid-cols-1">
+                  <div className=" flex  mr-2 gap-1 items-center ">
                     {rent.sittingroom && (
-                      <span className=" flex justify-center">
-                        {rent.sittingroom}
+                      <div className=" flex  items-center gap-1">
+                        <p className=" text-xl"> {rent.sittingroom}</p>
                         <img
-                          width="20"
-                          height="8"
+                          className=" w-5 h-5 mb-1"
                           src="https://img.icons8.com/ios-filled/50/living-room.png"
                           alt="living-room"
                         />
-                      </span>
+                      </div>
                     )}
-                    <span className=" flex justify-center">
-                      {rent.bedroom}
-                      <img src={bedicon} className=" w-4 h-[1.2rem]" />
-                    </span>
-                  </span>
-                  <span>📌 </span>
-                  {rent.location}
-                </p>
+                    <div className=" flex justify-center items-center gap-1">
+                      <p className=" text-xl"> {rent.bedroom}</p>
+                      <img src={bedicon} className=" w-5 h-5 mb-1" />
+                    </div>
+                  </div>
+                  <div className=" flex  items-center">
+                    <span>📌 </span>
+                    <p> {rent.location}</p>
+                  </div>
+                </div>
                 <p className=" text-gray-950 mt-2">₦{rent.rent}</p>
                 <NavLink to={`${rent.id}`}>
                   <button

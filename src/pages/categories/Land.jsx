@@ -35,11 +35,11 @@ function Land() {
               />
               <div>
                 <p className=" text-2xl text-[1rem] font-bold">{land.name}</p>
-                <p className=" flex">
+                <p className=" flex justify-start gap-2">
                   <span>📌 </span>
                   {land.location}
                 </p>
-                <p className=" text-gray-950 mt-2">₦{land.amount}</p>
+                <p className=" text-gray-950 my-2">₦{land.amount}</p>
                 <NavLink to={`${land.id}`}>
                   <button
                     disabled={!land.isActive}

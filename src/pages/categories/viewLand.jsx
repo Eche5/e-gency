@@ -1,4 +1,3 @@
-import bedicon from "../../assets/icons8-bedroom-96.png";
 import { useNavigate, useParams, useLocation } from "react-router-dom";
 import { useCategory } from "../../context/CategorieContext";
 import { useAuth } from "../../context/AuthenticationContext";
@@ -51,23 +50,6 @@ function ViewLand() {
           />
           <div className=" laptop:m-16 laptop:text-3xl desktop:m-16 desktop:text-3xl font-extrabold">
             <h2>{selectedItem.name}</h2>
-            <div className=" flex justify-center gap-4">
-              {selectedItem.sittingroom && (
-                <div className=" flex justify-center">
-                  {selectedItem.sittingroom}
-                  <img
-                    width="28"
-                    height="8"
-                    src="https://img.icons8.com/ios-filled/50/living-room.png"
-                    alt="living-room"
-                  />
-                </div>
-              )}
-              <div className=" flex justify-center">
-                {selectedItem.bedroom}
-                <img src={bedicon} className=" w-8 h-[2rem]" />
-              </div>
-            </div>
             <p>📌: {selectedItem.location}</p>
             <p>Price: ₦{selectedItem.amount}</p>
             <button
