@@ -19,7 +19,6 @@ function Register() {
   const [errMsg, setErrMsg] = useState("");
   const [validName, setValidName] = useState(false);
   const [validLastName, setValidLastName] = useState(false);
-  const [userFocus, setUserFocus] = useState(false);
 
   const [validPwd, setValidPwd] = useState(false);
   const [pwdFocus, setPwdFocus] = useState(false);

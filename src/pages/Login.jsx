@@ -19,7 +19,7 @@ function Login() {
 
   const [pwd, setPwd] = useState("");
   const LOGIN_URL = "/auth";
-  const { setAuth, setErrMsg, errMsg, auth } = useAuth();
+  const { setAuth, setErrMsg, errMsg } = useAuth();
 
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
