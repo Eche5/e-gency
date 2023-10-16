@@ -12,7 +12,6 @@ function ViewLand() {
   const selectedItem = landList?.find((item) => item.id === id);
   const navigate = useNavigate();
   const location = useLocation();
-  console.log(landList, isModal, auth);
 
   const contactOwnerHandler = () => {
     if (!auth?.accessToken) {

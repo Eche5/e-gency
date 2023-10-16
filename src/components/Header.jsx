@@ -8,6 +8,7 @@ function Header() {
   const { auth, headerRef } = useAuth();
   const logout = useLogOut();
   const navigate = useNavigate();
+  const isLoggedIn = auth.foundUser;
 
   const LogoutHandler = async () => {
     const result = await Swal.fire({
@@ -33,7 +34,7 @@ function Header() {
           -gency
         </span>
       </p>
-      {!auth?.foundUser && (
+      {!isLoggedIn && (
         <div className=" bg-gray-800 rounded-3xl p-2 justify-center flex gap-1 m-4">
           <NavLink
             to="/login"
@@ -61,7 +62,7 @@ function Header() {
           </NavLink>
         </div>
       )}
-      {auth?.accessToken && (
+      {isLoggedIn && (
         <button
           onClick={() => LogoutHandler()}
           className=" text-white  rounded-3xl bg-gray-900 pr-8  p-2  hover:transform hover:translate-x-[5px] hover:scale-[1.03] transition duration-300 ease-in-out border-2 border-gray-300 m-4"

@@ -16,7 +16,6 @@ function ViewRent() {
   useEffect(() => {
     document.title = `e-gency | ${selectedItem.name}`;
   });
-  console.log(selectedItem);
   const navigate = useNavigate();
   const location = useLocation();
 

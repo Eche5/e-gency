@@ -19,7 +19,7 @@ function Login() {
 
   const [pwd, setPwd] = useState("");
   const LOGIN_URL = "/auth";
-  const { setAuth, GoogleLogin, setErrMsg, errMsg, isLoggedIn } = useAuth();
+  const { setAuth, setErrMsg, errMsg, auth } = useAuth();
 
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
@@ -58,7 +58,6 @@ function Login() {
       setPwd("");
       navigate(from, { replace: true });
     } catch (err) {
-      console.log(err);
       if (err.response.status === 400) {
         setErrMsg(err.response.data.message);
         setIssLoggingin("Log in");
@@ -100,14 +99,12 @@ function Login() {
   }, [email, pwd, setErrMsg]);
   //google auth
   const handleCallbackResponse = (response) => {
-    // console.log("Encodede JWT ID Token: " + response.credential);
     const userObject = jwt_decode(response.credential);
     const token = response.credential;
     const email = userObject.email;
     GoogleLogin({ email, token });
-    if (isLoggedIn) navigate("/");
-    // console.log(userObject);
   };
+
   useEffect(() => {
     /* global google */
     google.accounts.id.initialize({
@@ -119,8 +116,27 @@ function Login() {
     google.accounts.id.renderButton(document.getElementById("signInDiv"), {
       theme: "outline",
       size: "large",
+      shape: "pill",
     });
   }, []);
+  //Google Login
+  const GoogleLogin = async ({ email, token }) => {
+    try {
+      const GOOGLE_URL = `/googleauth`;
+
+      const response = await axios.get(GOOGLE_URL, {
+        params: { email, token }, // Pass email as a query parameter
+        withCredentials: true,
+      });
+
+      const accessToken = response?.data?.accessToken;
+      const foundUser = response?.data?.user;
+      setAuth({ foundUser, accessToken });
+      navigate("/");
+    } catch (error) {
+      setErrMsg(error?.response?.data?.message);
+    }
+  };
 
   return (
     <div
@@ -155,7 +171,7 @@ function Login() {
               onChange={(e) => setEmail(e.target.value.trim())}
               value={email}
               placeholder="Email address"
-              className="pl-4 w-full"
+              className="pl-4"
               required
               ref={emailRef}
             />
@@ -212,7 +228,11 @@ function Login() {
               {isAuthenticating && <Spinner />}
             </div>
           </button>
-          <div id="signInDiv" className=" flex  justify-center p-2"></div>
+          <p className=" text-center font-bold">OR</p>
+          <div
+            id="signInDiv"
+            className=" flex  justify-center p-2 rounded-full"
+          ></div>
         </form>
         <p className=" text-center">Don&apos;t have an account</p>
         <NavLink to="/register">

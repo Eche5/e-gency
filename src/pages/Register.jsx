@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import {
   faCheck,
   faTimes,
@@ -8,6 +8,7 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import axios from "../api/axios";
 import Spinner from "../components/Spinner";
+import { useAuth } from "../context/AuthenticationContext";
 
 function Register() {
   const EMAIL_REGEX = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
@@ -46,7 +47,9 @@ function Register() {
 
   const isValidName = firstname.length > 4;
   const isValidLastName = lastname.length > 4;
-  const isValidPhoneNumber = phonenumber.length === 11;
+  const isValidPhoneNumber = phonenumber.length >= 11;
+
+  const { setAuth } = useAuth();
   useEffect(() => {
     if (isValidName) {
       setValidName(true);
@@ -62,7 +65,7 @@ function Register() {
       setValidLastName(false);
     }
   }, [isValidLastName]);
-
+  const navigate = useNavigate();
   useEffect(() => {
     if (isValidPhoneNumber) {
       setIsValidPhoneNumber(true);
@@ -118,9 +121,12 @@ function Register() {
           },
         }
       );
-      console.log(response);
+      const accessToken = response?.data?.accessToken;
+      const foundUser = response?.data?.newUser;
+      setAuth({ foundUser, accessToken });
 
       setisSigningUp("Sign Up");
+      navigate("/");
     } catch (error) {
       if (error.response.status === 403);
       setErrMsg(error.response.data.message);
@@ -146,7 +152,7 @@ function Register() {
         <h1 className="text-3xl leading-5 mt-4 text-center">
           Create a new account
         </h1>
-        <p className=" text-center mt-2"> It's quick and easy.</p>
+        <p className=" text-center mt-2"> It&apos;s quick and easy.</p>
         <form onSubmit={handleSubmit} className="flex flex-col pb-4">
           {/* //firstname */}
           <div className=" laptop:flex laptop:justify-between gap-1 ">

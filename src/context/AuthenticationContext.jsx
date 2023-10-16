@@ -18,13 +18,9 @@ const AuthProvider = ({ children }) => {
     try {
       const UPDATE_URL = `/${id}`;
       const userData = { firstname, lastname, email, confirmPassword: mtchPwd };
-      const response = await axiosPrivate.patch(
-        UPDATE_URL,
-        JSON.stringify(userData),
-        {
-          withCredentials: true,
-        }
-      );
+      await axiosPrivate.patch(UPDATE_URL, JSON.stringify(userData), {
+        withCredentials: true,
+      });
       setSuccess(true);
     } catch (error) {
       setSuccess(false);
