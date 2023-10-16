@@ -16,7 +16,6 @@ function DashBoard() {
     success,
     email,
   } = useAuth();
-  console.log(auth);
   useEffect(() => {
     if (auth.foundUser) {
       setFirstname(auth.foundUser.firstname);
@@ -24,7 +23,7 @@ function DashBoard() {
       setEmail(auth.foundUser.email);
       setMatchPwd("");
     }
-  }, [auth]);
+  }, [auth, setEmail, setFirstname, setMatchPwd, setLastname]);
   const [isReadOnly, setIsReadOnly] = useState(true);
   const [isEdit, setIsEdit] = useState(false);
 

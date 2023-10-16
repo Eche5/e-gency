@@ -5,7 +5,7 @@ import { useAuth } from "../context/AuthenticationContext";
 import useLogOut from "../hooks/useLogOut";
 
 function Header() {
-  const { auth } = useAuth();
+  const { auth, headerRef } = useAuth();
   const logout = useLogOut();
   const navigate = useNavigate();
 
@@ -24,28 +24,40 @@ function Header() {
     navigate("/");
   };
   return (
-    <header className=" flex justify-between">
+    <header className=" flex justify-between" ref={headerRef}>
       <p>
-        <span className=" transform absolute text-center skew-y-[-15deg] text-5xl">
+        <span className=" transform absolute text-center skew-y-[-15deg] laptop:text-5xl desktop:text-5xl phone:text-2xl small:text-2xl">
           e
         </span>
-        <span className=" p-8 text-5xl"> -gency</span>
+        <span className=" laptop:p-8 laptop:text-5xl desktop:text-5xl desktop:p-8 phone:text-2xl phone:pl-4 iphone:pl-3 small:text-2xl small:pl-3">
+          -gency
+        </span>
       </p>
       {!auth?.foundUser && (
         <div className=" bg-gray-800 rounded-3xl p-2 justify-center flex gap-1 m-4">
-          <NavLink to="/login">
-            <button className=" text-white  rounded-3xl border-2 pr-8 border-gray-700 p-1  hover:transform hover:translate-y-[-5px] hover:scale-[1.03] transition-all">
-              Sign in
-            </button>
+          <NavLink
+            to="/login"
+            className={({ isActive }) =>
+              isActive
+                ? " text-white  rounded-3xl border-2 pr-8 border-gray-700 p-1 grayscale cursor-not-allowed"
+                : " text-white  rounded-3xl border-2 pr-8 border-gray-700 p-1  hover:transform hover:translate-y-[-5px] hover:scale-[1.03] transition-all"
+            }
+          >
+            Sign in
           </NavLink>
 
-          <NavLink to="/register">
-            <button className=" text-black bg-white rounded-3xl p-1   hover:transform hover:translate-y-[-5px] hover:scale-[1.03] transition-all">
-              <p className=" flex justify-between gap-4">
-                <span>Sign up</span>
-                <span>↗</span>
-              </p>
-            </button>
+          <NavLink
+            to="/register"
+            className={({ isActive }) =>
+              isActive
+                ? " text-black bg-white rounded-3xl p-1  grayscale cursor-not-allowed"
+                : " text-black bg-white rounded-3xl p-1   hover:transform hover:translate-y-[-5px] hover:scale-[1.03] transition-all"
+            }
+          >
+            <p className=" flex justify-between gap-4">
+              <span>Sign up</span>
+              <span>↗</span>
+            </p>
           </NavLink>
         </div>
       )}

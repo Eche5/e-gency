@@ -5,13 +5,14 @@ import { useAuth } from "../../context/AuthenticationContext";
 import ContactForm from "../../components/ContactForm";
 import { useEffect } from "react";
 
-function ViewRent() {
+function ViewLand() {
   const { id } = useParams();
-  const { saleList, setIsMOdal, isModal } = useCategory();
+  const { landList, setIsMOdal, isModal } = useCategory();
   const { auth } = useAuth();
-  const selectedItem = saleList?.find((item) => item.id === id);
+  const selectedItem = landList?.find((item) => item.id === id);
   const navigate = useNavigate();
   const location = useLocation();
+  console.log(landList, isModal, auth);
 
   const contactOwnerHandler = () => {
     if (!auth?.accessToken) {
@@ -84,4 +85,4 @@ function ViewRent() {
   );
 }
 
-export default ViewRent;
+export default ViewLand;

@@ -1,18 +1,24 @@
 import bedicon from "../../assets/icons8-bedroom-96.png";
-import { useNavigate, useParams } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { useCategory } from "../../context/CategorieContext";
 import { useAuth } from "../../context/AuthenticationContext";
+import ContactForm from "../../components/ContactForm";
+import { useEffect } from "react";
 
 function ViewRent() {
   const { id } = useParams();
 
   const { auth } = useAuth();
 
-  const { rentList } = useCategory();
+  const { rentList, setIsMOdal, isModal } = useCategory();
 
   const selectedItem = rentList?.find((item) => item.id === id);
-
+  useEffect(() => {
+    document.title = `e-gency | ${selectedItem.name}`;
+  });
+  console.log(selectedItem);
   const navigate = useNavigate();
+  const location = useLocation();
 
   const contactOwnerHandler = () => {
     if (!auth?.accessToken) {
@@ -20,7 +26,13 @@ function ViewRent() {
         "You must be logged in to contact owner, Log in?"
       );
 
-      if (confirmed) navigate("/login");
+      if (confirmed)
+        navigate("/login", {
+          state: { from: location },
+          replace: true,
+        });
+    } else {
+      setIsMOdal(true);
     }
   };
   if (!selectedItem) {
@@ -35,14 +47,14 @@ function ViewRent() {
       >
         👈back
       </button>
-      <div className="flex justify-center items-center pb-36">
-        <div className="text-center flex justify-center">
+      <div className=" items-center pb-36">
+        <div className="text-center laptop:flex laptop:justify-center desktop:flex desktop:justify-center">
           <img
             src={selectedItem.image}
             alt={selectedItem.name}
-            className="w-[40vw] h-[60vh]"
+            className="laptop:w-[40vw] laptop:h-[60vh] desktop:w-[40vw] desktop:h-[60vh] rounded-lg"
           />
-          <div className=" m-16 text-3xl font-extrabold">
+          <div className=" laptop:m-16 laptop:text-3xl desktop:m-16 desktop:text-3xl font-extrabold">
             <h2>{selectedItem.name}</h2>
             <div className=" flex justify-center gap-4">
               {selectedItem.sittingroom && (
@@ -72,6 +84,7 @@ function ViewRent() {
           </div>
         </div>
       </div>
+      {isModal && <ContactForm />}
     </>
   );
 }

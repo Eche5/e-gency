@@ -1,4 +1,11 @@
-import homeIcon from "../assets/icons8-home-96.png";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faHouse,
+  faUser,
+  faTimes,
+  faInfoCircle,
+  faSprayCanSparkles,
+} from "@fortawesome/free-solid-svg-icons";
 import newIcon from "../assets/icons8-new-96.png";
 import loggedInprofile from "../assets/icons8-admin-settings-male-96.png";
 import profile from "../assets/icons8-edit-account-96.png";
@@ -11,26 +18,25 @@ function Footer() {
   return (
     <footer className=" fixed bottom-0 w-full bg-cyan-500 shadow-lg shadow-cyan-500/50 ">
       <nav className="bg-sky-50 flex justify-around">
-        <img
-          src={newIcon}
-          alt="new"
-          className="bg-sky-50 p-1 cursor-pointer hover:transform hover:translate-y-[-15px] hover:scale-[1.03] transition duration-300 ease-in-out rounded-full h-24 w-24"
-        />
+        <NavLink to="/new">
+          <FontAwesomeIcon
+            icon={faSprayCanSparkles}
+            className="bg-sky-50 p-1 cursor-pointer hover:transform hover:translate-y-[-15px] hover:scale-[1.03] transition duration-300 ease-in-out rounded-full laptop:h-20 laptop:w-20 desktop:h-20 desktop:w-20 "
+          />
+        </NavLink>
+
         <NavLink to="/">
-          <img
-            src={homeIcon}
-            alt="home"
-            id="triangular-border"
-            className="bg-sky-50 p-1 cursor-pointer hover:transform hover:translate-y-[-15px] hover:scale-[1.03] transition duration-300 ease-in-out rounded-t-full h-24 w-24"
+          <FontAwesomeIcon
+            icon={faHouse}
+            className="bg-sky-50 p-1 cursor-pointer hover:transform hover:translate-y-[-15px] hover:scale-[1.03] transition duration-300 ease-in-out rounded-full laptop:h-20 laptop:w-20 desktop:h-20 desktop:w-20"
           />
         </NavLink>
 
         {!auth.accessToken && (
           <NavLink to="/register">
-            <img
-              src={profile}
-              alt="profile"
-              className="bg-sky-50 p-1 cursor-pointer hover:transform hover:translate-y-[-15px] hover:scale-[1.03]  rounded-full h-24 w-24 transition duration-300 ease-in-out"
+            <FontAwesomeIcon
+              icon={faUser}
+              className="bg-sky-50 p-1 cursor-pointer hover:transform hover:translate-y-[-15px] hover:scale-[1.03] transition duration-300 ease-in-out rounded-full laptop:h-20 laptop:w-20 desktop:h-20 desktop:w-20"
             />
           </NavLink>
         )}
@@ -39,7 +45,7 @@ function Footer() {
             <img
               src={loggedInprofile}
               alt="loggedInprofile"
-              className="bg-sky-50 p-1 cursor-pointer hover:transform hover:translate-y-[-15px] hover:scale-[1.03]  rounded-full h-24 w-24 transition duration-300 ease-in-out"
+              className="bg-sky-50 p-1 phone:w-8 iphone:w-8 small:w-8 cursor-pointer hover:transform hover:translate-y-[-15px] hover:scale-[1.03] transition duration-300 ease-in-out rounded-full laptop:h-20 laptop:w-20 desktop:h-20 desktop:w-20"
             />
           </NavLink>
         )}

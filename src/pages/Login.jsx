@@ -1,5 +1,6 @@
 import { useState, useRef, useEffect } from "react";
-import { useNavigate, NavLink } from "react-router-dom";
+import jwt_decode from "jwt-decode";
+import { useNavigate, NavLink, useLocation } from "react-router-dom";
 import visible from "../assets/icons8-visible-30.png";
 import notvisible from "../assets/icons8-not-visible-30.png";
 import axios from "../api/axios";
@@ -13,18 +14,18 @@ function Login() {
 
   const [isValid, setIsValid] = useState(false);
   const [email, setEmail] = useState("");
-  const [errMsg, setErrMsg] = useState("");
   const errRef = useRef();
   const [isLogin, setIssLoggingin] = useState("Log in");
 
   const [pwd, setPwd] = useState("");
   const LOGIN_URL = "/auth";
-  const { auth, setAuth } = useAuth();
+  const { setAuth, GoogleLogin, setErrMsg, errMsg, isLoggedIn } = useAuth();
 
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
   };
   const navigate = useNavigate();
+  const location = useLocation();
   const from = location.state?.from?.pathname || "/";
   //saves last inputed username
   useEffect(() => {
@@ -97,6 +98,29 @@ function Login() {
   useEffect(() => {
     setErrMsg("");
   }, [email, pwd, setErrMsg]);
+  //google auth
+  const handleCallbackResponse = (response) => {
+    // console.log("Encodede JWT ID Token: " + response.credential);
+    const userObject = jwt_decode(response.credential);
+    const token = response.credential;
+    const email = userObject.email;
+    GoogleLogin({ email, token });
+    if (isLoggedIn) navigate("/");
+    // console.log(userObject);
+  };
+  useEffect(() => {
+    /* global google */
+    google.accounts.id.initialize({
+      client_id:
+        "924812526298-trlat91td4e9d846nrrhc34edequm7rv.apps.googleusercontent.com",
+      callback: handleCallbackResponse,
+    });
+
+    google.accounts.id.renderButton(document.getElementById("signInDiv"), {
+      theme: "outline",
+      size: "large",
+    });
+  }, []);
 
   return (
     <div
@@ -114,46 +138,58 @@ function Login() {
         >
           {errMsg}
         </p>
-        <h1 className="text-5xl leading-5 mt-4">Sign In</h1>
+        <h1 className="text-5xl leading-5 mt-4 text-center mb-20">Welcome</h1>
         <form onSubmit={onHandleSubmit} className="flex flex-col pb-4">
-          <label htmlFor="email" className="mt-4">
-            Email-address
-          </label>
-          <input
-            id="email"
-            type="text"
-            onChange={(e) => setEmail(e.target.value.trim())}
-            value={email}
-            placeholder="Email"
-            required
-            ref={emailRef}
-            className="text-[22px] p-1 rounded-full text-black  pl-4"
-          />
-          <label htmlFor="password" className="mt-4">
-            Password
-          </label>
-          <div className=" flex justify-between border-l-2 bg-white rounded-full shadow-lg border-2 border-gray-800">
+          <div className=" flex bg-white text-[1.2rem] p-1 rounded-full text-black mb-4">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              height="1em"
+              viewBox="0 0 448 512"
+              className="w-8 h-8 p-1"
+            >
+              <path d="M224 256A128 128 0 1 0 224 0a128 128 0 1 0 0 256zm-45.7 48C79.8 304 0 383.8 0 482.3C0 498.7 13.3 512 29.7 512H418.3c16.4 0 29.7-13.3 29.7-29.7C448 383.8 368.2 304 269.7 304H178.3z" />
+            </svg>
+            <input
+              id="email"
+              type="text"
+              onChange={(e) => setEmail(e.target.value.trim())}
+              value={email}
+              placeholder="Email address"
+              className="pl-4 w-full"
+              required
+              ref={emailRef}
+            />
+          </div>
+
+          <div className="flex justify-between p-1 text-[1.2rem]  border-l-2  bg-white rounded-full text-black shadow-lg border-2 border-gray-800">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              height="1em"
+              viewBox="0 0 512 512"
+              className="w-8 h-8 p-1 "
+            >
+              <path d="M336 352c97.2 0 176-78.8 176-176S433.2 0 336 0S160 78.8 160 176c0 18.7 2.9 36.8 8.3 53.7L7 391c-4.5 4.5-7 10.6-7 17v80c0 13.3 10.7 24 24 24h80c13.3 0 24-10.7 24-24V448h40c13.3 0 24-10.7 24-24V384h40c6.4 0 12.5-2.5 17-7l33.3-33.3c16.9 5.4 35 8.3 53.7 8.3zM376 96a40 40 0 1 1 0 80 40 40 0 1 1 0-80z" />
+            </svg>
             <input
               id="password"
               onChange={(e) => setPwd(e.target.value)}
               value={pwd}
               required
+              className="pl-4 w-full"
               placeholder="Login Password"
               type={inputType}
-              className="text-[22px] p-1  text-black rounded-l-[9999px] pl-4"
             />
-            {showPassword && (
+            {showPassword ? (
               <img
                 src={visible}
                 onClick={togglePasswordVisibility}
-                className=" cursor-pointer w-8 h-8 m-1"
+                className="cursor-pointer w-8 h-8 p-1"
               />
-            )}
-            {!showPassword && (
+            ) : (
               <img
                 src={notvisible}
                 onClick={togglePasswordVisibility}
-                className=" cursor-pointer w-8 h-8 m-1"
+                className="cursor-pointer w-8 h-8 p-1"
               />
             )}
           </div>
@@ -176,10 +212,13 @@ function Login() {
               {isAuthenticating && <Spinner />}
             </div>
           </button>
+          <div id="signInDiv" className=" flex  justify-center p-2"></div>
         </form>
         <p className=" text-center">Don&apos;t have an account</p>
         <NavLink to="/register">
-          <p className="text-center text-2xl text-white"> Sign up</p>
+          <p className="text-center text-2xl text-gray-800 hover:underline">
+            Sign up
+          </p>
         </NavLink>
       </section>
     </div>
