@@ -10,36 +10,50 @@ function Login() {
   const emailRef = useRef();
 
   const [showPassword, setShowPassword] = useState(false);
+
   const [isAuthenticating, setIsAuthenticating] = useState(false);
 
   const [isValid, setIsValid] = useState(false);
+
   const [email, setEmail] = useState("");
+
   const errRef = useRef();
+
   const [isLogin, setIssLoggingin] = useState("Log in");
 
   const [pwd, setPwd] = useState("");
+
   const LOGIN_URL = "/auth";
+
   const { setAuth, setErrMsg, errMsg } = useAuth();
 
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
   };
+
   const navigate = useNavigate();
+
   const location = useLocation();
+
   const from = location.state?.from?.pathname || "/";
+
   //saves last inputed username
   useEffect(() => {
     const savedEmail = localStorage.getItem("lastEmail");
+
     if (savedEmail) {
       setEmail(savedEmail);
     }
   }, []);
+
   const onHandleSubmit = async (e) => {
     e.preventDefault();
 
     try {
       setIssLoggingin("Logging in...");
+
       setIsAuthenticating(true);
+
       const response = await axios.post(
         LOGIN_URL,
         JSON.stringify({ email, password: pwd }),
@@ -48,27 +62,40 @@ function Login() {
           withCredentials: true,
         }
       );
+
       const accessToken = response?.data?.accessToken;
+
       const foundUser = response?.data?.user;
+
       setAuth({ foundUser, accessToken });
+
       localStorage.setItem("lastUsername", email);
 
       setIssLoggingin("Log in");
+
       setEmail("");
+
       setPwd("");
+
       navigate(from, { replace: true });
     } catch (err) {
       if (err.response.status === 400) {
         setErrMsg(err.response.data.message);
+
         setIssLoggingin("Log in");
+
         setIsAuthenticating(false);
       } else if (err.response.status === 401) {
         setErrMsg(err.response.data.message);
+
         setIssLoggingin("Log in");
+
         setIsAuthenticating(false);
       } else {
         setErrMsg("No Server Response");
+
         setIssLoggingin("Log in");
+
         setIsAuthenticating(false);
       }
 
@@ -98,10 +125,14 @@ function Login() {
     setErrMsg("");
   }, [email, pwd, setErrMsg]);
   //google auth
+
   const handleCallbackResponse = (response) => {
     const userObject = jwt_decode(response.credential);
+
     const token = response.credential;
+
     const email = userObject.email;
+
     GoogleLogin({ email, token });
   };
 
@@ -119,6 +150,7 @@ function Login() {
       shape: "pill",
     });
   }, []);
+
   //Google Login
   const GoogleLogin = async ({ email, token }) => {
     try {
@@ -130,8 +162,11 @@ function Login() {
       });
 
       const accessToken = response?.data?.accessToken;
+
       const foundUser = response?.data?.user;
+
       setAuth({ foundUser, accessToken });
+
       navigate("/");
     } catch (error) {
       setErrMsg(error?.response?.data?.message);

@@ -1,5 +1,5 @@
 import bedicon from "../assets/icons8-bedroom-96.png";
-import { NavLink, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import new1 from "../assets/744adac1deed3c25af167b0253d5a287.jpg";
 import new3 from "../assets/studio-apartment-ideas-room-divider-ideas-tranebergsva-gen-stockholm-living-room-industry-fantastic-frank-popular-copy-1589570199.jpg";
 import new2 from "../assets/20e5536509d38753c888b66af7c245f8--backyard-pools-architecture-photo.jpg";
@@ -49,10 +49,13 @@ function Rent() {
       isActive: true,
     },
   ];
+
   const navigate = useNavigate();
+
   useEffect(() => {
     document.title = "e-gency | new";
   }, []);
+
   const currentTimestamp = Date.now();
 
   const date = new Date(currentTimestamp);
@@ -68,6 +71,7 @@ function Rent() {
   };
 
   const formattedDate = date.toLocaleString("en-US", options);
+
   return (
     <div className=" phone:pb-36 iphone:pb-36 small:pb-36">
       <button

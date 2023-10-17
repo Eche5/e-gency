@@ -4,12 +4,14 @@ import { useAuth } from "../context/AuthenticationContext";
 
 function ProtectedRoute() {
   const { auth } = useAuth();
+
   const navigate = useNavigate();
 
   useEffect(
-    function() {
+    function () {
       if (!auth?.accessToken) navigate("/");
     },
+
     [auth?.accessToken, navigate]
   );
 

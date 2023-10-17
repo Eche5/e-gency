@@ -6,8 +6,11 @@ import useLogOut from "../hooks/useLogOut";
 
 function Header() {
   const { auth, headerRef } = useAuth();
+
   const logout = useLogOut();
+
   const navigate = useNavigate();
+
   const isLoggedIn = auth.foundUser;
 
   const LogoutHandler = async () => {
@@ -22,8 +25,10 @@ function Header() {
     });
 
     if (result.isConfirmed) logout();
+
     navigate("/");
   };
+
   return (
     <header className=" flex justify-between" ref={headerRef}>
       <p>

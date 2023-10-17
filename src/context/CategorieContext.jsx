@@ -16,8 +16,9 @@ import { Outlet } from "react-router-dom";
 
 const categoryContext = createContext();
 
-const CategoryProvider = ({ children }) => {
+const CategoryProvider = () => {
   const [isModal, setIsMOdal] = useState(false);
+
   const rentList = [
     {
       id: "R3G7P9Q2W1",

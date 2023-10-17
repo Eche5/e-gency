@@ -6,10 +6,15 @@ import { useEffect } from "react";
 
 function ViewLand() {
   const { id } = useParams();
+
   const { landList, setIsMOdal, isModal } = useCategory();
+
   const { auth } = useAuth();
+
   const selectedItem = landList?.find((item) => item.id === id);
+
   const navigate = useNavigate();
+
   const location = useLocation();
 
   const contactOwnerHandler = () => {
@@ -27,12 +32,15 @@ function ViewLand() {
       setIsMOdal(true);
     }
   };
+
   useEffect(() => {
     document.title = `e-gency | ${selectedItem.name}`;
   });
+
   if (!selectedItem) {
     return <div>Item not found</div>;
   }
+
   return (
     <>
       <button

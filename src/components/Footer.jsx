@@ -2,19 +2,17 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faHouse,
   faUser,
-  faTimes,
-  faInfoCircle,
   faSprayCanSparkles,
 } from "@fortawesome/free-solid-svg-icons";
-import newIcon from "../assets/icons8-new-96.png";
 import loggedInprofile from "../assets/icons8-admin-settings-male-96.png";
-import profile from "../assets/icons8-edit-account-96.png";
 import { NavLink } from "react-router-dom";
 import { useAuth } from "../context/AuthenticationContext";
 
 function Footer() {
   const { auth } = useAuth();
+
   const id = auth?.foundUser?._id;
+
   return (
     <footer className=" fixed bottom-0 w-full bg-cyan-500 shadow-lg shadow-cyan-500/50 ">
       <nav className="bg-sky-50 flex justify-around">

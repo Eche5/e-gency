@@ -7,8 +7,11 @@ import { useAuth } from "../context/AuthenticationContext";
 
 function Carousels() {
   const images = [house1, house2, house3];
+
   const { headerRef } = useAuth();
+
   const [indexImage, setIndexImage] = useState(1);
+
   const [activeItem, setActiveItem] = useState(1); // Initialize activeItem state
 
   const handlePreviousClick = () => {

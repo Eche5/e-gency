@@ -4,10 +4,13 @@ import { useCategory } from "../../context/CategorieContext";
 import { useEffect } from "react";
 function Sale() {
   const { saleList } = useCategory();
+
   const navigate = useNavigate();
+
   useEffect(() => {
     document.title = "e-gency | sale";
   });
+
   return (
     <div className=" phone:pb-36 iphone:pb-36 small:pb-36">
       <button

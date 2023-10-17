@@ -16,7 +16,9 @@ function ViewRent() {
   useEffect(() => {
     document.title = `e-gency | ${selectedItem.name}`;
   });
+
   const navigate = useNavigate();
+
   const location = useLocation();
 
   const contactOwnerHandler = () => {
@@ -34,6 +36,7 @@ function ViewRent() {
       setIsMOdal(true);
     }
   };
+
   if (!selectedItem) {
     return <div>Item not found</div>;
   }

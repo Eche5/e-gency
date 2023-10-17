@@ -7,10 +7,15 @@ import { useEffect } from "react";
 
 function ViewRent() {
   const { id } = useParams();
+
   const { saleList, setIsMOdal, isModal } = useCategory();
+
   const { auth } = useAuth();
+
   const selectedItem = saleList?.find((item) => item.id === id);
+
   const navigate = useNavigate();
+
   const location = useLocation();
 
   const contactOwnerHandler = () => {
@@ -28,12 +33,15 @@ function ViewRent() {
       setIsMOdal(true);
     }
   };
+
   useEffect(() => {
     document.title = `e-gency | ${selectedItem.name}`;
   });
+
   if (!selectedItem) {
     return <div>Item not found</div>;
   }
+
   return (
     <>
       <button

@@ -12,43 +12,63 @@ import { useAuth } from "../context/AuthenticationContext";
 
 function Register() {
   const EMAIL_REGEX = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+
   const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
+
   const errRef = useRef();
+
   const firstNameRef = useRef();
 
   const [errMsg, setErrMsg] = useState("");
+
   const [validName, setValidName] = useState(false);
+
   const [validLastName, setValidLastName] = useState(false);
 
   const [validPwd, setValidPwd] = useState(false);
+
   const [pwdFocus, setPwdFocus] = useState(false);
 
   const [validMatch, setValidMatch] = useState(false);
+
   const [matchFocus, setMatchFocus] = useState(false);
 
   const [isAuthenticating, setIsAuthenticating] = useState(false);
+
   const [isSigningUp, setisSigningUp] = useState("Sign Up");
+
   const [email, setEmail] = useState("");
+
   const [validEmail, setValidEmail] = useState(false);
+
   const [emailFocus, setEmailFocus] = useState(false);
 
   const [firstname, setFirstname] = useState("");
+
   const [firstNameFocus, setFirstNameFocus] = useState(false);
 
   const [lastname, setLastname] = useState("");
+
   const [lastNameFocus, setLastNameFocus] = useState(false);
+
   const [pwd, setPwd] = useState("");
+
   const [matchPwd, setMatchPwd] = useState("");
 
   const [phonenumber, setPhonenumber] = useState("");
+
   const [validPhoneNumber, setIsValidPhoneNumber] = useState(false);
+
   const [phonenumberFocus, setPhonenumberFocus] = useState(false);
 
   const isValidName = firstname.length > 4;
+
   const isValidLastName = lastname.length > 4;
+
   const isValidPhoneNumber = phonenumber.length >= 11;
 
   const { setAuth } = useAuth();
+
   useEffect(() => {
     if (isValidName) {
       setValidName(true);
@@ -64,7 +84,9 @@ function Register() {
       setValidLastName(false);
     }
   }, [isValidLastName]);
+
   const navigate = useNavigate();
+
   useEffect(() => {
     if (isValidPhoneNumber) {
       setIsValidPhoneNumber(true);
@@ -83,6 +105,7 @@ function Register() {
 
   useEffect(() => {
     setValidPwd(PWD_REGEX.test(pwd));
+
     setValidMatch(pwd === matchPwd);
   }, [pwd, matchPwd, PWD_REGEX]);
 
@@ -91,15 +114,22 @@ function Register() {
   }, [firstname, pwd, matchPwd]);
 
   const REGISTER_URL = "/register";
+
   const handleSubmit = async (e) => {
     e.preventDefault();
+
     const v1 = EMAIL_REGEX.test(email);
+
     const v2 = PWD_REGEX.test(pwd);
+
     if (!v1 || !v2) {
       setErrMsg("Invalid Entry");
+
       return;
     }
+
     const phone = phonenumber.toString();
+
     const userData = {
       email,
       firstname,
@@ -108,9 +138,12 @@ function Register() {
       password: pwd,
       confirmPassword: matchPwd,
     };
+
     try {
       setIsAuthenticating(true);
+
       setisSigningUp("Creating your account...");
+
       const response = await axios.post(
         REGISTER_URL,
         JSON.stringify(userData),
@@ -120,19 +153,27 @@ function Register() {
           },
         }
       );
+
       const accessToken = response?.data?.accessToken;
+
       const foundUser = response?.data?.newUser;
+
       setAuth({ foundUser, accessToken });
 
       setisSigningUp("Sign Up");
+
       navigate("/");
     } catch (error) {
       if (error.response.status === 403);
+
       setErrMsg(error.response.data.message);
+
       setIsAuthenticating(false);
+
       setisSigningUp("Sign Up");
     }
   };
+
   return (
     <div
       className="

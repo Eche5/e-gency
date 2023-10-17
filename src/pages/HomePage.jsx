@@ -6,6 +6,7 @@ function HomePage() {
   useEffect(() => {
     document.title = "e-rent | Home ";
   }, []);
+
   return (
     <section>
       <Carousels />

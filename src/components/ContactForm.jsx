@@ -4,18 +4,26 @@ import Modal from "../ui/Modal";
 import { useAuth } from "../context/AuthenticationContext";
 
 function ContactForm() {
-  const { isModal, setIsMOdal } = useCategory();
+  const { setIsMOdal } = useCategory();
+
   const messageRef = useRef();
+
   const { auth } = useAuth();
+
   const [name, setName] = useState(auth?.foundUser?.firstname);
+
   const [message, setMessage] = useState("");
+
   const [includePhoneNumber, setIncludePhoneNumber] = useState(false);
+
   const [success, setSuccess] = useState(false);
+
   const [messageIsValid, setMessageIsValid] = useState(false);
 
   const handleCheckboxChange = () => {
     setIncludePhoneNumber((prevState) => !prevState);
   };
+
   useEffect(() => {
     if (message.length > 8) {
       setMessageIsValid(true);
@@ -23,13 +31,17 @@ function ContactForm() {
       setMessageIsValid(false);
     }
   }, [message]);
+
   const onHandleSubmit = (e) => {
     e.preventDefault();
+
     setSuccess(true);
+
     setTimeout(() => {
       setIsMOdal(false);
     }, 3000);
   };
+
   return (
     <Modal>
       {!success && (

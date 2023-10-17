@@ -16,6 +16,7 @@ function DashBoard() {
     success,
     email,
   } = useAuth();
+
   useEffect(() => {
     if (auth.foundUser) {
       setFirstname(auth.foundUser.firstname);
@@ -24,27 +25,39 @@ function DashBoard() {
       setMatchPwd("");
     }
   }, [auth, setEmail, setFirstname, setMatchPwd, setLastname]);
+
   const [isReadOnly, setIsReadOnly] = useState(true);
+
   const [isEdit, setIsEdit] = useState(false);
 
   const onEditHandler = (e) => {
     e.preventDefault();
+
     setIsReadOnly((prev) => (prev = !prev));
+
     setIsEdit(true);
   };
+
   const params = useParams();
+
   const { "*": id } = params;
+
   const updateProfileHandler = (e) => {
     e.preventDefault();
+
     updateMe(id);
+
     if (success) {
       setIsReadOnly(true);
+
       setIsEdit(false);
     } else {
       setIsReadOnly(true);
+
       setIsEdit(false);
     }
   };
+
   return (
     <div
       className="

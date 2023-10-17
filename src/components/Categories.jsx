@@ -8,6 +8,7 @@ import land from "../assets/land-sale-sign-empty-land-surrounded-with-white-wood
 
 function Categories() {
   const [imageSrc, setImageSrc] = useState(mypicture);
+
   const [housesrc, setHousesrc] = useState(housepic);
 
   const handleMouseEnter = () => {
@@ -16,14 +17,18 @@ function Categories() {
 
   const handleMouseLeave = () => {
     setImageSrc(mypicture);
+
     setHousesrc(housepic);
   };
+
   const handleMouseenterHouse = () => {
     setHousesrc(house);
   };
+
   const handleMouseLeaveHouse = () => {
     setHousesrc(housepic);
   };
+
   return (
     <section className="desktop:pb-36">
       <h1 className="font-serif text-2xl px-8 pb-4">Categories</h1>

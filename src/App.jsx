@@ -21,6 +21,7 @@ const New = lazy(() => import("./pages/New"));
 
 function App() {
   const { auth } = useAuth();
+
   return (
     <Suspense fallback={<Loader />}>
       <Routes>

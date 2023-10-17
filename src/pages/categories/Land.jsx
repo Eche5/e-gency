@@ -4,10 +4,13 @@ import { useEffect } from "react";
 
 function Land() {
   const { landList } = useCategory();
+
   const navigate = useNavigate();
+
   useEffect(() => {
     document.title = "e-gency | land";
   }, []);
+
   return (
     <div className=" phone:pb-36 iphone:pb-36 small:pb-36">
       <button

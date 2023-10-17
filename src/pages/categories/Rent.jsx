@@ -5,10 +5,13 @@ import { useEffect } from "react";
 
 function Rent() {
   const { rentList } = useCategory();
+
   const navigate = useNavigate();
+
   useEffect(() => {
     document.title = "e-gency | rent";
   }, []);
+
   return (
     <div className=" phone:pb-36 iphone:pb-36 small:pb-36">
       <button
