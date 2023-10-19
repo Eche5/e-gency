@@ -42,7 +42,7 @@ function ForgotPassword() {
             </h1>
             <div>
               <p className=" pb-2">Enter your email address</p>
-              <div className=" flex w-f bg-white text-[1.2rem] p-1 rounded-full text-black mb-4">
+              <div className=" flex  bg-white text-[1.2rem] p-1 rounded-full text-black mb-4">
                 <img
                   className="w-8 h-8 p-1"
                   src="https://img.icons8.com/ios/50/new-post.png"
