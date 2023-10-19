@@ -174,7 +174,7 @@ function ResetPassword() {
           </form>
         )}
         {success && (
-          <NavLink className=" mt-32 font-black text-3xl">
+          <NavLink to="/login" className=" mt-32 font-black text-3xl">
             click here to Login
           </NavLink>
         )}
