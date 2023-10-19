@@ -94,7 +94,7 @@ function ResetPassword() {
         </p>
         {!success && (
           <form className="flex flex-col pb-4 gap-4" onSubmit={onHandleSubmit}>
-            <h1 className="text-5xl leading-5 mt-4 text-center mb-10">
+            <h1 className="text-4xl leading-5 mt-4 text-center mb-10">
               Reset Password
             </h1>
 

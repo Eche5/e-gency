@@ -30,15 +30,14 @@ function ForgotPassword() {
   return (
     <div
       className="
-    flex flex-col justify-center items-center
+    flex  justify-center items-center
    py-4 px-2
   "
-      id="loginpage"
     >
-      <section className=" max-w-[520px] min-h-[400px]  p-8  bg-gradient-to-r from-sky-500 to-indigo-500 text-white rounded-lg">
+      <section className=" max-w-[520px] min-h-[420px]  p-4  bg-gradient-to-r from-sky-500 to-indigo-500 text-white rounded-lg">
         {!success && (
           <form className="flex flex-col pb-4" onSubmit={onHandleSubmit}>
-            <h1 className="text-5xl leading-5 mt-4 text-center mb-20">
+            <h1 className="text-4xl leading-5 mt-4 text-center pb-20">
               Forgot Password
             </h1>
             <div>
