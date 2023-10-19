@@ -206,7 +206,7 @@ function Login() {
               onChange={(e) => setEmail(e.target.value.trim())}
               value={email}
               placeholder="Email address"
-              className="pl-4"
+              className="pl-4 w-[80%]"
               required
               ref={emailRef}
             />

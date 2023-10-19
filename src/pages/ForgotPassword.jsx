@@ -54,7 +54,7 @@ function ForgotPassword() {
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder="Email address"
-                  className=" w-full"
+                  className="pl-4 w-[80%]"
                   required
                 />
               </div>
