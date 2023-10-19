@@ -245,6 +245,10 @@ function Login() {
             )}
           </div>
 
+          <NavLink to="/forgotpassword">
+            <p className=" underline p-2">Forgot Password?</p>
+          </NavLink>
+
           <button
             disabled={!isValid || isAuthenticating}
             type="submit"

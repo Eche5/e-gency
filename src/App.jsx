@@ -12,6 +12,9 @@ import ProtectedRoute from "./components/ProtectedRoute";
 import Land from "./pages/categories/Land";
 
 import ViewLand from "./pages/categories/viewLand";
+import Reset from "./pages/ForgotPassword";
+import ForgotPassword from "./pages/ForgotPassword";
+import ResetPassword from "./pages/ResetPassword";
 const Rent = lazy(() => import("./pages/categories/Rent"));
 const ViewRent = lazy(() => import("./pages/categories/ViewRent"));
 const Sale = lazy(() => import("./pages/categories/Sale"));
@@ -28,6 +31,11 @@ function App() {
         <Route element={<PersistLogin />}>
           <Route path="/" element={<AppLayout />}>
             <Route path="/" element={<HomePage />} />
+            <Route path="/forgotpassword" element={<ForgotPassword />} />
+            <Route
+              path="/resetpassword/:id/:token"
+              element={<ResetPassword />}
+            />
             <Route path="/new" element={<New />} />
             {!auth?.accessToken && (
               <>

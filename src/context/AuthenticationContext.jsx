@@ -38,35 +38,6 @@ const AuthProvider = ({ children }) => {
     }
   };
 
-  const GoogleLogin = async ({ email, token }) => {
-    setIsLoggedIn(false);
-
-    try {
-      const GOOGLE_URL = `/googleauth`;
-
-      const response = await axios.get(GOOGLE_URL, {
-        params: { email, token }, // Pass email as a query parameter
-        withCredentials: true,
-      });
-
-      const accessToken = response?.data?.accessToken;
-
-      const foundUser = response?.data?.user;
-
-      setAuth({ foundUser, accessToken });
-
-      if (foundUser) setIsLoggedIn(true);
-
-      setSuccess(true);
-    } catch (error) {
-      setIsLoggedIn(false);
-
-      setErrMsg(error?.response?.data?.message);
-
-      setSuccess(false);
-    }
-  };
-
   return (
     <authContext.Provider
       value={{
@@ -78,7 +49,6 @@ const AuthProvider = ({ children }) => {
         setMatchPwd,
         setEmail,
         updateMe,
-        GoogleLogin,
         setErrMsg,
         isLoggedIn,
         errMsg,
