@@ -15,6 +15,7 @@ import ViewLand from "./pages/categories/viewLand";
 import Reset from "./pages/ForgotPassword";
 import ForgotPassword from "./pages/ForgotPassword";
 import ResetPassword from "./pages/ResetPassword";
+import Verify from "./pages/Verify";
 const Rent = lazy(() => import("./pages/categories/Rent"));
 const ViewRent = lazy(() => import("./pages/categories/ViewRent"));
 const Sale = lazy(() => import("./pages/categories/Sale"));
@@ -32,6 +33,7 @@ function App() {
           <Route path="/" element={<AppLayout />}>
             <Route path="/" element={<HomePage />} />
             <Route path="/forgotpassword" element={<ForgotPassword />} />
+            <Route path="/verify/:id" element={<Verify />} />
             <Route
               path="/resetpassword/:id/:token"
               element={<ResetPassword />}

@@ -25,7 +25,11 @@ function Login() {
 
   const LOGIN_URL = "/auth";
 
+  const [isVerified, setIsVerified] = useState(true);
+
   const { setAuth, setErrMsg, errMsg } = useAuth();
+
+  const [isLoading, setIssLoading] = useState("Verify email");
 
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
@@ -86,7 +90,7 @@ function Login() {
 
         setIsAuthenticating(false);
       } else if (err.response.status === 401) {
-        setErrMsg(err.response.data.message);
+        setIsVerified(false);
 
         setIssLoggingin("Log in");
 
@@ -173,6 +177,22 @@ function Login() {
     }
   };
 
+  //resendverification
+
+  const onResendVerification = async (e) => {
+    e.preventDefault();
+    const RESEND_URL = `/verify`;
+    setIssLoading("verifying email...");
+    try {
+      const response = await axios.post(RESEND_URL, JSON.stringify({ email }), {
+        headers: { "Content-Type": "application/json" },
+        withCredentials: true,
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <div
       className="
@@ -181,105 +201,117 @@ function Login() {
   "
       id="loginpage"
     >
-      <section className="w-full max-w-[420px] min-h-[400px]  p-8  bg-gradient-to-r from-sky-500 to-indigo-500 text-white rounded-lg">
-        <p
-          ref={errRef}
-          className={errMsg ? "errmsg" : "offscreen"}
-          aria-live="assertive"
-        >
-          {errMsg}
-        </p>
-        <h1 className="text-5xl leading-5 mt-4 text-center mb-20">Welcome</h1>
-        <form onSubmit={onHandleSubmit} className="flex flex-col pb-4">
-          <div className=" flex bg-white text-[1.2rem] p-1 rounded-full text-black mb-4">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              height="1em"
-              viewBox="0 0 448 512"
-              className="w-8 h-8 p-1"
-            >
-              <path d="M224 256A128 128 0 1 0 224 0a128 128 0 1 0 0 256zm-45.7 48C79.8 304 0 383.8 0 482.3C0 498.7 13.3 512 29.7 512H418.3c16.4 0 29.7-13.3 29.7-29.7C448 383.8 368.2 304 269.7 304H178.3z" />
-            </svg>
-            <input
-              id="email"
-              type="text"
-              onChange={(e) => setEmail(e.target.value.trim())}
-              value={email}
-              placeholder="Email address"
-              className="pl-4 w-[80%]"
-              required
-              ref={emailRef}
-            />
-          </div>
-
-          <div className="flex justify-between p-1 text-[1.2rem]  border-l-2  bg-white rounded-full text-black shadow-lg border-2 border-gray-800">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              height="1em"
-              viewBox="0 0 512 512"
-              className="w-8 h-8 p-1 "
-            >
-              <path d="M336 352c97.2 0 176-78.8 176-176S433.2 0 336 0S160 78.8 160 176c0 18.7 2.9 36.8 8.3 53.7L7 391c-4.5 4.5-7 10.6-7 17v80c0 13.3 10.7 24 24 24h80c13.3 0 24-10.7 24-24V448h40c13.3 0 24-10.7 24-24V384h40c6.4 0 12.5-2.5 17-7l33.3-33.3c16.9 5.4 35 8.3 53.7 8.3zM376 96a40 40 0 1 1 0 80 40 40 0 1 1 0-80z" />
-            </svg>
-            <input
-              id="password"
-              onChange={(e) => setPwd(e.target.value)}
-              value={pwd}
-              required
-              className="pl-4 w-full"
-              placeholder="Login Password"
-              type={inputType}
-            />
-            {showPassword ? (
-              <img
-                src={visible}
-                onClick={togglePasswordVisibility}
-                className="cursor-pointer w-8 h-8 p-1"
-              />
-            ) : (
-              <img
-                src={notvisible}
-                onClick={togglePasswordVisibility}
-                className="cursor-pointer w-8 h-8 p-1"
-              />
-            )}
-          </div>
-
-          <NavLink to="/forgotpassword">
-            <p className=" underline p-2">Forgot Password?</p>
-          </NavLink>
-
-          <button
-            disabled={!isValid || isAuthenticating}
-            type="submit"
-            className={
-              isValid
-                ? `border rounded-full border-transparent py-2 px-4 text-base font-medium ${
-                    isAuthenticating
-                      ? "bg-gray-400 cursor-not-allowed rounded-full"
-                      : "bg-gray-900 hover:bg-green-700 rounded-full"
-                  } hover:border-gray-400 transition duration-250 ease-in-out mt-4`
-                : "cursor-not-allowed border rounded-full border-transparent py-2 px-4 text-base font-medium bg-gray-900 hover:border-gray-400 transition duration-250 ease-in-out mt-4"
-            }
+      {isVerified && (
+        <section className="w-full max-w-[420px] min-h-[400px]  p-8  bg-gradient-to-r from-sky-500 to-indigo-500 text-white rounded-lg">
+          <p
+            ref={errRef}
+            className={errMsg ? "errmsg" : "offscreen"}
+            aria-live="assertive"
           >
-            <div className="flex justify-center gap-4">
-              {isLogin}
-              {isAuthenticating && <Spinner />}
-            </div>
-          </button>
-          <p className=" text-center font-bold">OR</p>
-          <div
-            id="signInDiv"
-            className=" flex  justify-center p-2 rounded-full"
-          ></div>
-        </form>
-        <p className=" text-center">Don&apos;t have an account</p>
-        <NavLink to="/register">
-          <p className="text-center text-2xl text-gray-800 hover:underline">
-            Sign up
+            {errMsg}
           </p>
-        </NavLink>
-      </section>
+          <h1 className="text-5xl leading-5 mt-4 text-center mb-20">Welcome</h1>
+          <form onSubmit={onHandleSubmit} className="flex flex-col pb-4">
+            <div className=" flex bg-white text-[1.2rem] p-1 rounded-full text-black mb-4">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                height="1em"
+                viewBox="0 0 448 512"
+                className="w-8 h-8 p-1"
+              >
+                <path d="M224 256A128 128 0 1 0 224 0a128 128 0 1 0 0 256zm-45.7 48C79.8 304 0 383.8 0 482.3C0 498.7 13.3 512 29.7 512H418.3c16.4 0 29.7-13.3 29.7-29.7C448 383.8 368.2 304 269.7 304H178.3z" />
+              </svg>
+              <input
+                id="email"
+                type="text"
+                onChange={(e) => setEmail(e.target.value.trim())}
+                value={email}
+                placeholder="Email address"
+                className="pl-4 w-[80%]"
+                required
+                ref={emailRef}
+              />
+            </div>
+
+            <div className="flex justify-between p-1 text-[1.2rem]  border-l-2  bg-white rounded-full text-black shadow-lg border-2 border-gray-800">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                height="1em"
+                viewBox="0 0 512 512"
+                className="w-8 h-8 p-1 "
+              >
+                <path d="M336 352c97.2 0 176-78.8 176-176S433.2 0 336 0S160 78.8 160 176c0 18.7 2.9 36.8 8.3 53.7L7 391c-4.5 4.5-7 10.6-7 17v80c0 13.3 10.7 24 24 24h80c13.3 0 24-10.7 24-24V448h40c13.3 0 24-10.7 24-24V384h40c6.4 0 12.5-2.5 17-7l33.3-33.3c16.9 5.4 35 8.3 53.7 8.3zM376 96a40 40 0 1 1 0 80 40 40 0 1 1 0-80z" />
+              </svg>
+              <input
+                id="password"
+                onChange={(e) => setPwd(e.target.value)}
+                value={pwd}
+                required
+                className="pl-4 w-full"
+                placeholder="Login Password"
+                type={inputType}
+              />
+              {showPassword ? (
+                <img
+                  src={visible}
+                  onClick={togglePasswordVisibility}
+                  className="cursor-pointer w-8 h-8 p-1"
+                />
+              ) : (
+                <img
+                  src={notvisible}
+                  onClick={togglePasswordVisibility}
+                  className="cursor-pointer w-8 h-8 p-1"
+                />
+              )}
+            </div>
+
+            <NavLink to="/forgotpassword">
+              <p className=" underline p-2">Forgot Password?</p>
+            </NavLink>
+
+            <button
+              disabled={!isValid || isAuthenticating}
+              type="submit"
+              className={
+                isValid
+                  ? `border rounded-full border-transparent py-2 px-4 text-base font-medium ${
+                      isAuthenticating
+                        ? "bg-gray-400 cursor-not-allowed rounded-full"
+                        : "bg-gray-900 hover:bg-green-700 rounded-full"
+                    } hover:border-gray-400 transition duration-250 ease-in-out mt-4`
+                  : "cursor-not-allowed border rounded-full border-transparent py-2 px-4 text-base font-medium bg-gray-900 hover:border-gray-400 transition duration-250 ease-in-out mt-4"
+              }
+            >
+              <div className="flex justify-center gap-4">
+                {isLogin}
+                {isAuthenticating && <Spinner />}
+              </div>
+            </button>
+            <p className=" text-center font-bold">OR</p>
+            <div
+              id="signInDiv"
+              className=" flex  justify-center p-2 rounded-full"
+            ></div>
+          </form>
+          <p className=" text-center">Don&apos;t have an account</p>
+          <NavLink to="/register">
+            <p className="text-center text-2xl text-gray-800 hover:underline">
+              Sign up
+            </p>
+          </NavLink>
+        </section>
+      )}
+      {!isVerified && (
+        <section className="w-full max-w-[520px] min-h-[500px] p-8 bg-gradient-to-r from-sky-500 to-indigo-500 text-black rounded-lg flex flex-col justify-center items-center">
+          <button
+            onClick={onResendVerification}
+            className="border rounded-full border-transparent py-2 px-8 text-xl font-medium bg-white text-black m-4"
+          >
+            RESEND VERIFICATION EMAIL
+          </button>
+        </section>
+      )}
     </div>
   );
 }
