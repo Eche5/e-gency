@@ -184,7 +184,7 @@ function Login() {
     const RESEND_URL = `/verify`;
     setIssLoading("verifying email...");
     try {
-      const response = await axios.post(RESEND_URL, JSON.stringify({ email }), {
+      await axios.post(RESEND_URL, JSON.stringify({ email }), {
         headers: { "Content-Type": "application/json" },
         withCredentials: true,
       });
