@@ -182,7 +182,7 @@ function Register() {
       id="homepage"
     >
       {!isSignedUp && (
-        <section className="  mb-20   p-4 bg-gradient-to-r from-cyan-500 to-blue-500 text-white rounded-lg">
+        <section className="  mb-20   p-4 bg-gradient-to-r from-stone-200 to-neutral-500  rounded-3xl">
           <p
             ref={errRef}
             className={errMsg ? "errmsg" : "offscreen"}
@@ -190,10 +190,12 @@ function Register() {
           >
             {errMsg}
           </p>
-          <h1 className="text-3xl leading-5 mt-4 text-center">
+          <h1 className="text-3xl leading-5 mt-4 text-center text-gray-900">
             Create a new account
           </h1>
-          <p className=" text-center mt-2"> It&apos;s quick and easy.</p>
+          <p className=" text-center m-2 text-gray-900">
+            It&apos;s quick and easy.
+          </p>
           <form onSubmit={handleSubmit} className="flex flex-col pb-4">
             {/* //firstname */}
             <div className=" laptop:flex laptop:justify-between gap-1 ">
@@ -220,22 +222,9 @@ function Register() {
                 aria-describedby="uidnote"
                 onFocus={() => setFirstNameFocus(true)}
                 onBlur={() => setFirstNameFocus(false)}
-                className="text-[22px] p-1 rounded-full text-black  pl-4 w-full phone:mb-6"
+                className="text-[22px] p-1 rounded-3xl bg-white text-black  pl-4 w-full phone:mb-6"
               />
-              <p
-                id="uidnote"
-                className={
-                  firstNameFocus && firstname && !validName
-                    ? "instructions"
-                    : "offscreen"
-                }
-              >
-                <FontAwesomeIcon icon={faInfoCircle} />
-                4 to 24 characters.
-                <br />
-                Must begin with a letter.
-                <br />
-              </p>
+
               {/* //lastname */}
               <label htmlFor="lastname">
                 <FontAwesomeIcon
@@ -259,22 +248,8 @@ function Register() {
                 aria-describedby="uidnote"
                 onFocus={() => setLastNameFocus(true)}
                 onBlur={() => setLastNameFocus(false)}
-                className="text-[22px] p-1 rounded-full text-black  pl-4 w-full phone:mb-6"
+                className="text-[22px] p-1 rounded-3xl  bg-white text-black   pl-4 w-full phone:mb-6"
               />
-              <p
-                id="uidnote"
-                className={
-                  lastNameFocus && lastname && !validLastName
-                    ? "instructions"
-                    : "offscreen"
-                }
-              >
-                <FontAwesomeIcon icon={faInfoCircle} />
-                4 to 24 characters.
-                <br />
-                Must begin with a letter.
-                <br />
-              </p>
             </div>
 
             {/* //email */}
@@ -300,7 +275,7 @@ function Register() {
               aria-describedby="uidnote"
               onFocus={() => setEmailFocus(true)}
               onBlur={() => setEmailFocus(false)}
-              className="text-[22px] p-1 rounded-full text-black  pl-4"
+              className="text-[22px] p-1 rounded-3xl  bg-white text-black  pl-4"
             />
             <p
               id="uidnote"
@@ -343,7 +318,7 @@ function Register() {
               aria-describedby="uidnote"
               onFocus={() => setPhonenumberFocus(true)}
               onBlur={() => setPhonenumberFocus(false)}
-              className="text-[22px] p-1 rounded-full text-black  pl-4 phone:mb-6"
+              className="text-[22px] p-1 rounded-3xl text-inherit  bg-white text-black pl-4 phone:mb-6"
             />
             <p
               id="uidnote"
@@ -381,7 +356,7 @@ function Register() {
               aria-describedby="pwdnote"
               onFocus={() => setPwdFocus(true)}
               onBlur={() => setPwdFocus(false)}
-              className="text-[22px] p-1 rounded-full text-black  pl-4 phone:mb-6"
+              className="text-[22px] p-1 rounded-3xl  bg-white text-black pl-4 phone:mb-6"
             />
             <p
               id="pwdnote"
@@ -421,7 +396,7 @@ function Register() {
               aria-describedby="confirmnote"
               onFocus={() => setMatchFocus(true)}
               onBlur={() => setMatchFocus(false)}
-              className="text-[22px] p-1 rounded-full text-black  pl-4"
+              className="text-[22px] p-1 rounded-3xl  bg-white text-black  pl-4"
             />
             <p
               id="confirmnote"
@@ -437,12 +412,12 @@ function Register() {
                 disabled={!validName || !validPwd || !validMatch ? true : false}
                 className={
                   validMatch
-                    ? `border rounded-full border-transparent py-2 px-8 text-base font-medium ${
+                    ? `border rounded-3xl border-transparent py-2 px-8 text-base font-medium text-white ${
                         isAuthenticating
                           ? "bg-gray-400 cursor-not-allowed"
                           : "bg-gray-900 hover:bg-green-700"
                       } hover:border-gray-400 transition duration-250 ease-in-out mt-4`
-                    : "cursor-not-allowed border rounded-full border-transparent py-2 px-8 text-base font-medium bg-gray-900 hover:border-gray-400 transition duration-250 ease-in-out mt-4"
+                    : "cursor-not-allowed border rounded-3xl border-transparent py-2 px-8 text-base font-medium bg-gray-900 hover:border-gray-400 transition duration-250 ease-in-out mt-4"
                 }
               >
                 <div className=" flex justify-center gap-4">
@@ -451,14 +426,17 @@ function Register() {
               </button>
             </div>
           </form>
-          <p className=" text-center">Already have an account</p>
+          <p className=" text-center text-white">Already have an account</p>
           <NavLink to="/login">
-            <p className="text-center text-2xl text-white"> Login</p>
+            <p className="text-center text-2xl text-gray-900 hover:underline">
+              {" "}
+              Login
+            </p>
           </NavLink>
         </section>
       )}
       {isSignedUp && (
-        <section className="  mt-40   p-4 bg-gradient-to-r from-cyan-500 to-blue-500 text-white rounded-lg">
+        <section className="  mt-40   p-4 bg-gradient-to-r from-cyan-500 to-blue-500 text-white rounded-3xl">
           <div className=" text-center">
             <h1 className=" text-3xl">🎉 Almost there!</h1>
             <p className=" text-2xl">We&apos;ve sent you an email at </p>

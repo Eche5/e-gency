@@ -144,7 +144,7 @@ function Login() {
     /* global google */
     google.accounts.id.initialize({
       client_id:
-        "924812526298-trlat91td4e9d846nrrhc34edequm7rv.apps.googleusercontent.com",
+        "221101201489-9u39f32384pn1688dlq3fd0vsdrt2s3d.apps.googleusercontent.com",
       callback: handleCallbackResponse,
     });
 
@@ -202,7 +202,7 @@ function Login() {
       id="loginpage"
     >
       {isVerified && (
-        <section className="w-full max-w-[420px] min-h-[400px]  p-8  bg-gradient-to-r from-sky-500 to-indigo-500 text-white rounded-lg">
+        <section className="w-full max-w-[420px] min-h-[400px]  p-8  bg-gradient-to-r from-stone-200 to-neutral-500 rounded-3xl">
           <p
             ref={errRef}
             className={errMsg ? "errmsg" : "offscreen"}
@@ -210,9 +210,11 @@ function Login() {
           >
             {errMsg}
           </p>
-          <h1 className="text-5xl leading-5 mt-4 text-center mb-20">Welcome</h1>
+          <h1 className="text-5xl leading-5 mt-4 text-center mb-20 text-gray-900">
+            Welcome
+          </h1>
           <form onSubmit={onHandleSubmit} className="flex flex-col pb-4">
-            <div className=" flex bg-white text-[1.2rem] p-1 rounded-full text-black mb-4">
+            <div className=" flex bg-white text-[1.2rem] p-1 rounded-3xl  mb-4">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 height="1em"
@@ -227,13 +229,13 @@ function Login() {
                 onChange={(e) => setEmail(e.target.value.trim())}
                 value={email}
                 placeholder="Email address"
-                className="pl-4 w-[80%]"
+                className="pl-4 w-[80%] bg-gray-500 text-black"
                 required
                 ref={emailRef}
               />
             </div>
 
-            <div className="flex justify-between p-1 text-[1.2rem]  border-l-2  bg-white rounded-full text-black shadow-lg border-2 border-gray-800">
+            <div className="flex justify-between p-1 text-[1.2rem]  border-l-2  bg-white rounded-3xl  shadow-lg border-2 border-gray-800">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 height="1em"
@@ -247,7 +249,7 @@ function Login() {
                 onChange={(e) => setPwd(e.target.value)}
                 value={pwd}
                 required
-                className="pl-4 w-full"
+                className="pl-4 w-full bg-gray-500 text-black"
                 placeholder="Login Password"
                 type={inputType}
               />
@@ -255,7 +257,7 @@ function Login() {
                 <img
                   src={visible}
                   onClick={togglePasswordVisibility}
-                  className="cursor-pointer w-8 h-8 p-1"
+                  className="cursor-pointer w-8 h-8 p-1 "
                 />
               ) : (
                 <img
@@ -267,7 +269,7 @@ function Login() {
             </div>
 
             <NavLink to="/forgotpassword">
-              <p className=" underline p-2">Forgot Password?</p>
+              <p className=" underline p-2 text-gray-900">Forgot Password?</p>
             </NavLink>
 
             <button
@@ -275,12 +277,12 @@ function Login() {
               type="submit"
               className={
                 isValid
-                  ? `border rounded-full border-transparent py-2 px-4 text-base font-medium ${
+                  ? `border rounded-3xl border-transparent py-2 px-4 text-base font-medium text-white ${
                       isAuthenticating
-                        ? "bg-gray-400 cursor-not-allowed rounded-full"
-                        : "bg-gray-900 hover:bg-green-700 rounded-full"
-                    } hover:border-gray-400 transition duration-250 ease-in-out mt-4`
-                  : "cursor-not-allowed border rounded-full border-transparent py-2 px-4 text-base font-medium bg-gray-900 hover:border-gray-400 transition duration-250 ease-in-out mt-4"
+                        ? "bg-gray-400 cursor-not-allowed rounded-3xl text-white"
+                        : "bg-gray-900 hover:bg-green-700 rounded-3xl text-white"
+                    } hover:border-gray-400 transition duration-250 ease-in-out mt-4 text-white`
+                  : "cursor-not-allowed border rounded-3xl border-transparent py-2 px-4 text-white font-medium bg-gray-900 hover:border-gray-400 transition duration-250 ease-in-out mt-4"
               }
             >
               <div className="flex justify-center gap-4">
@@ -288,28 +290,28 @@ function Login() {
                 {isAuthenticating && <Spinner />}
               </div>
             </button>
-            <p className=" text-center font-bold">OR</p>
+            <p className=" text-center font-bold text-white">OR</p>
             <div
               id="signInDiv"
-              className=" flex  justify-center p-2 rounded-full"
+              className=" flex  justify-center p-2 rounded-3xl"
             ></div>
           </form>
-          <p className=" text-center">Don&apos;t have an account</p>
+          <p className=" text-center text-white">Don&apos;t have an account</p>
           <NavLink to="/register">
-            <p className="text-center text-2xl text-gray-800 hover:underline">
+            <p className="text-center text-2xl  hover:underline text-gray-900">
               Sign up
             </p>
           </NavLink>
         </section>
       )}
       {!isVerified && (
-        <section className="w-full max-w-[520px] min-h-[500px] p-8 bg-gradient-to-r from-sky-500 to-indigo-500 text-black rounded-lg flex flex-col justify-center items-center">
-          <p>
+        <section className="w-full max-w-[520px] min-h-[500px] p-8 bg-gradient-to-r from-stone-200 to-neutral-500  text-black rounded-3xl flex flex-col justify-center items-center">
+          <p className=" text-center text-white ">
             Your email address is not verified, Please click the button below
           </p>
           <button
             onClick={onResendVerification}
-            className="border rounded-full border-transparent py-2 px-8 text-xl font-medium bg-white text-black m-4"
+            className="border rounded-3xl border-transparent py-2 px-8 text-sm font-medium bg-white text-black m-4"
           >
             RESEND VERIFICATION EMAIL
           </button>

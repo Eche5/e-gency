@@ -3,10 +3,11 @@ import {
   faCheck,
   faTimes,
   faInfoCircle,
+  faChevronLeft,
 } from "@fortawesome/free-solid-svg-icons";
 import axios from "../api/axios";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { NavLink, useParams } from "react-router-dom";
+import { NavLink, useNavigate, useParams } from "react-router-dom";
 import Spinner from "../components/Spinner";
 
 function ResetPassword() {
@@ -31,7 +32,10 @@ function ResetPassword() {
   const [validPwd, setValidPwd] = useState(false);
 
   const [isLoading, setIssLoading] = useState("Reset Password");
+
   const [isRessettin, setIsResetting] = useState(false);
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     setValidPwd(PWD_REGEX.test(pwd));
@@ -40,8 +44,14 @@ function ResetPassword() {
   }, [pwd, matchPwd, PWD_REGEX]);
 
   const param = useParams();
+
   const id = param.id;
+
   const token = param.token;
+
+  useEffect(() => {
+    document.title = "e-rent | ResetPassword ";
+  }, []);
 
   const onHandleSubmit = async (e) => {
     e.preventDefault();
@@ -84,7 +94,7 @@ function ResetPassword() {
    py-4 px-2
   "
     >
-      <section className=" max-w-[620px] min-h-[400px]  p-8  bg-gradient-to-r from-sky-500 to-indigo-500 text-white rounded-lg">
+      <section className=" laptop:w-[520px] desktop:w-[520px]  min-h-[400px] phone:w-full small:w-full iphone:w-full  p-8 bg-gradient-to-r from-stone-200 to-neutral-500  text-white rounded-3xl">
         <p
           ref={errRef}
           className={errMsg ? "errmsg" : "offscreen"}
@@ -94,7 +104,7 @@ function ResetPassword() {
         </p>
         {!success && (
           <form className="flex flex-col pb-4 gap-4" onSubmit={onHandleSubmit}>
-            <h1 className="text-4xl leading-5 mt-4 text-center mb-10">
+            <h1 className="text-4xl leading-5 mt-4 text-center mb-10 text-gray-900">
               Reset Password
             </h1>
 
@@ -119,7 +129,7 @@ function ResetPassword() {
               aria-describedby="pwdnote"
               onFocus={() => setPwdFocus(true)}
               onBlur={() => setPwdFocus(false)}
-              className="text-[22px] p-1 rounded-full text-black  pl-4 phone:mb-6"
+              className="text-[22px] p-1 rounded-3xl text-black  pl-4 phone:mb-6"
             />
             <p
               id="pwdnote"
@@ -157,7 +167,7 @@ function ResetPassword() {
               aria-describedby="confirmnote"
               onFocus={() => setMatchFocus(true)}
               onBlur={() => setMatchFocus(false)}
-              className="text-[22px] p-1 rounded-full text-black  pl-4"
+              className="text-[22px] p-1 rounded-3xl text-black  pl-4"
             />
             <p
               id="confirmnote"
@@ -168,7 +178,7 @@ function ResetPassword() {
               <FontAwesomeIcon icon={faInfoCircle} />
               password Must match the first password input field.
             </p>
-            <button className=" flex justify-center gap-2 border rounded-full border-transparent py-2 px-4 text-base font-medium bg-black text-white m-4">
+            <button className=" flex justify-center gap-2 border rounded-3xl border-transparent py-2 px-4 text-base font-medium bg-black text-white m-4">
               {isRessettin && <Spinner />} {isLoading}
             </button>
           </form>
@@ -178,6 +188,14 @@ function ResetPassword() {
             click here to Login
           </NavLink>
         )}
+        <div className=" flex items-center gap-2 text-gray-900">
+          <FontAwesomeIcon
+            icon={faChevronLeft}
+            className=" cursor-pointer"
+            onClick={() => navigate("/login")}
+          />
+          <p>Back to login</p>
+        </div>
       </section>
     </div>
   );

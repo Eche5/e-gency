@@ -11,6 +11,9 @@ export default {
       desktop: "1280px",
       laptop: "1536px",
     },
+    daisyui: {
+      themes: ["light", "dark", "cupcake"],
+    },
     extend: {},
   },
   plugins: [require("daisyui")],
