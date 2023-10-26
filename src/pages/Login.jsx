@@ -306,12 +306,12 @@ function Login() {
       )}
       {!isVerified && (
         <section className="w-full max-w-[520px] min-h-[500px] p-8 bg-gradient-to-r from-stone-200 to-neutral-500  text-black rounded-3xl flex flex-col justify-center items-center">
-          <p className=" text-center text-white ">
+          <p className=" text-center text-gray-900 text-3xl ">
             Your email address is not verified, Please click the button below
           </p>
           <button
             onClick={onResendVerification}
-            className="border rounded-3xl border-transparent py-2 px-8 text-sm font-medium bg-white text-black m-4"
+            className="border rounded-3xl border-transparent py-2 px-8 text-sm font-medium bg-white hover:bg-gray-900 hover:text-white text-black m-4"
           >
             RESEND VERIFICATION EMAIL
           </button>

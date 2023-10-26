@@ -50,9 +50,10 @@ input:focus {
 }
 
 .errmsg {
-  background-color: lightpink;
-  color: blue;
+  background-color: rgb(26, 22, 22);
+  color: white;
   font-weight: bold;
+  border-radius: 30px;
   padding: 0.5rem;
   margin-bottom: 0.5rem;
 }

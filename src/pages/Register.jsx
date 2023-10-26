@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { NavLink, useNavigate } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import {
   faCheck,
   faTimes,
@@ -65,7 +65,11 @@ function Register() {
 
   const isValidLastName = lastname.length > 4;
 
-  const isValidPhoneNumber = phonenumber.length >= 11;
+  const isValidPhoneNumber =
+    (phonenumber.length >= 11 && phonenumber.startsWith("08")) ||
+    phonenumber.startsWith("09") ||
+    phonenumber.startsWith("07");
+
   const [isSignedUp, setIsSignedUp] = useState(false);
 
   const { setAuth } = useAuth();
@@ -85,8 +89,6 @@ function Register() {
       setValidLastName(false);
     }
   }, [isValidLastName]);
-
-  const navigate = useNavigate();
 
   useEffect(() => {
     if (isValidPhoneNumber) {
@@ -182,7 +184,7 @@ function Register() {
       id="homepage"
     >
       {!isSignedUp && (
-        <section className="  mb-20   p-4 bg-gradient-to-r from-stone-200 to-neutral-500  rounded-3xl">
+        <section className="  mb-36   p-4 bg-gradient-to-r from-stone-200 to-neutral-500  rounded-3xl">
           <p
             ref={errRef}
             className={errMsg ? "errmsg" : "offscreen"}
@@ -368,11 +370,11 @@ function Register() {
               Must include uppercase and lowercase letters, a number and a
               special character.
               <br />
-              Allowed special characters:{" "}
-              <span aria-label="exclamation mark">!</span>{" "}
-              <span aria-label="at symbol">@</span>{" "}
-              <span aria-label="hashtag">#</span>{" "}
-              <span aria-label="dollar sign">$</span>{" "}
+              Allowed special characters:
+              <span aria-label="exclamation mark">!</span>
+              <span aria-label="at symbol">@</span>
+              <span aria-label="hashtag">#</span>
+              <span aria-label="dollar sign">$</span>
               <span aria-label="percent">%</span>
             </p>
             <label htmlFor="confirm_pwd">
@@ -429,14 +431,13 @@ function Register() {
           <p className=" text-center text-white">Already have an account</p>
           <NavLink to="/login">
             <p className="text-center text-2xl text-gray-900 hover:underline">
-              {" "}
               Login
             </p>
           </NavLink>
         </section>
       )}
       {isSignedUp && (
-        <section className="  mt-40   p-4 bg-gradient-to-r from-cyan-500 to-blue-500 text-white rounded-3xl">
+        <section className="  mt-40   p-4 bg-gradient-to-r from-stone-200 to-neutral-500 text-gray-900 rounded-3xl">
           <div className=" text-center">
             <h1 className=" text-3xl">🎉 Almost there!</h1>
             <p className=" text-2xl">We&apos;ve sent you an email at </p>

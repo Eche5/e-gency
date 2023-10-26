@@ -70,7 +70,7 @@ function Verify() {
             </p>
             <button
               onClick={onHandleSubmit}
-              className="border flex justify-center gap-2 rounded-full border-transparent py-2 px-12 text-2xl font-medium bg-black text-white m-4"
+              className="border flex justify-center gap-2 rounded-full border-transparent py-2 px-12 text-2xl font-medium bg-black hover:bg-gray-500 hover:text-gray-900 text-white m-4"
             >
               {isLoading}
             </button>
